@@ -1,18 +1,18 @@
-import React, { Component, Fragment } from "react";
-import MapGL, { Marker } from "react-map-gl";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Creators as ProgrammerActions } from "../../store/ducks/programmers";
-import CustomModal from "../../components/modal/index";
-import MenuList from "../../components/menulist/index";
-import { ContainerMap, BehindContainer } from "./styles";
+import React, { Component, Fragment } from 'react';
+import MapGL, { Marker } from 'react-map-gl';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as ProgrammerActions } from '../../store/ducks/programmers';
+import CustomModal from '../../components/modal/index';
+import MenuList from '../../components/menulist/index';
+import { ContainerMap, BehindContainer } from './styles';
 class Main extends Component {
   state = {
     newEntryInput: {
-      username: "",
+      username: '',
       latitude: 0,
-      longitude: 0
+      longitude: 0,
     },
     modalIsOpen: false,
     viewport: {
@@ -20,18 +20,18 @@ class Main extends Component {
       height: 400,
       latitude: -23.5439948,
       longitude: -46.6076,
-      zoom: 8
-    }
+      zoom: 8,
+    },
     //programmers: []
   };
 
   componentDidMount() {
-    window.addEventListener("resize", this._resize);
+    window.addEventListener('resize', this._resize);
     this._resize();
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this._resize);
+    window.removeEventListener('resize', this._resize);
   }
 
   _resize = () => {
@@ -39,8 +39,8 @@ class Main extends Component {
       viewport: {
         ...this.state.viewport,
         width: window.innerWidth,
-        height: window.innerHeight
-      }
+        height: window.innerHeight,
+      },
     });
   };
 
@@ -51,8 +51,8 @@ class Main extends Component {
     this.setState({
       newEntryInput: {
         latitude: e.lngLat[1],
-        longitude: e.lngLat[0]
-      }
+        longitude: e.lngLat[0],
+      },
     });
   };
 
@@ -72,15 +72,15 @@ class Main extends Component {
       newEntryInput: {
         username: e.target.value,
         latitude: this.state.newEntryInput.latitude,
-        longitude: this.state.newEntryInput.longitude
-      }
+        longitude: this.state.newEntryInput.longitude,
+      },
     });
 
     console.log(this.state.newEntryInput);
   };
 
   removeProgrammer = programmer => {
-    console.log(this.props.programmers);
+    this.props.removeProgrammerSuccess(programmer);
   };
 
   render() {
@@ -88,7 +88,7 @@ class Main extends Component {
       <Fragment>
         <div className="App">
           <CustomModal
-            greeting={"testando"}
+            greeting={'testando'}
             openModal={this.openModal}
             modalIsOpen={this.state.modalIsOpen}
             closeModal={this.closeModal}
@@ -107,7 +107,7 @@ class Main extends Component {
                 onClick={this.handleMapClick}
                 mapStyle="mapbox://styles/mapbox/basic-v9"
                 mapboxApiAccessToken={
-                  "pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ"
+                  'pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ'
                 }
                 onViewportChange={viewport => this.setState({ viewport })}
               >
@@ -123,7 +123,7 @@ class Main extends Component {
                       style={{
                         borderRadius: 100,
                         width: 48,
-                        height: 48
+                        height: 48,
                       }}
                       src={programmer.avatar}
                     />
@@ -139,13 +139,12 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  programmers: state.programmers
+  programmers: state.programmers,
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(ProgrammerActions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(ProgrammerActions, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Main);

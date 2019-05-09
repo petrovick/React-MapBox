@@ -43,7 +43,6 @@ const CustomModal = props => (
   }
   */
   <div>
-    <button onClick={props.openModal}>Open Modal</button>
     <Modal
       isOpen={props.modalIsOpen}
       onAfterOpen={props.afterOpenModal}
@@ -51,7 +50,6 @@ const CustomModal = props => (
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <button onClick={props.closeModal}>Fechar</button>
       <label>Nome do usuário</label>
       <form>
         <input
@@ -59,7 +57,7 @@ const CustomModal = props => (
           placeholder="Github User"
           onChange={e => props.getTypedUsername(e)}
         />
-        <button>tab navigation</button>
+        <button onClick={props.closeModal}>Adicionar</button>
       </form>
     </Modal>
   </div>

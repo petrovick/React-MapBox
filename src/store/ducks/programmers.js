@@ -13,14 +13,16 @@ export const Types = {
  */
 const INITIAL_STATE = {
   loading: false,
-  data: [{
-    latitude: -23.5439948,
-    longitude: -46.6076,
-    avatar: 'https://avatars2.githubusercontent.com/u/2254731?v=4',
-    name: 'Diego',
-    login: 'rocketseat',
-    id: 1,
-  }],
+  data: [
+    {
+      latitude: -23.5439948,
+      longitude: -46.6076,
+      avatar: 'https://avatars2.githubusercontent.com/u/2254731?v=4',
+      name: 'Diego',
+      login: 'rocketseat',
+      id: 1,
+    },
+  ],
 };
 
 export default function programmers(state = INITIAL_STATE, action) {
@@ -53,8 +55,7 @@ export default function programmers(state = INITIAL_STATE, action) {
         error: action.payload.error,
       };
     case Types.REMOVE_SUCCESS:
-      const programmersLeft = state.data.filter((item) => item.id != action.payload.data.id);
-
+      const programmersLeft = state.data.filter(item => item.id != action.payload.data.id);
       return {
         ...state,
         loading: false,
@@ -88,6 +89,13 @@ export const Creators = {
     type: Types.ADD_FAILURE,
     payload: {
       error,
+    },
+  }),
+
+  removeProgrammerSuccess: data => ({
+    type: Types.REMOVE_SUCCESS,
+    payload: {
+      data,
     },
   }),
 };
