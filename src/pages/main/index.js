@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as ProgrammerActions } from '../../store/ducks/programmers';
 import CustomModal from '../../components/modal/index';
-
+import MenuList from '../../components/menulist/index';
+import { ContainerMap, BehindContainer } from './styles';
 class Main extends Component {
   state = {
     newEntryInput: {
@@ -49,8 +50,8 @@ class Main extends Component {
 
     this.setState({
       newEntryInput: {
-        latitude: e.lngLat[0],
-        longitude: e.lngLat[1],
+        latitude: e.lngLat[1],
+        longitude: e.lngLat[0],
       },
     });
   };
@@ -61,6 +62,8 @@ class Main extends Component {
   };
   closeModal = () => {
     this.props.addProgrammerRequest(this.state.newEntryInput);
+    debugger;
+    this.setState({ modalIsOpen: false });
   };
 
   getTypedUsername = e => {
@@ -76,6 +79,8 @@ class Main extends Component {
     console.log(this.state.newEntryInput);
   };
 
+  removeProgrammer = () => {};
+
   render() {
     return (
       <Fragment>
@@ -88,34 +93,42 @@ class Main extends Component {
             usernameInput={this.state.usernameInput}
             getTypedUsername={this.getTypedUsername}
           />
-          <p>{this.state.usernameInput}</p>
-          <MapGL
-            {...this.state.viewport}
-            onClick={this.handleMapClick}
-            mapStyle="mapbox://styles/mapbox/basic-v9"
-            mapboxApiAccessToken={
-              'pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ'
-            }
-            onViewportChange={viewport => this.setState({ viewport })}
-          >
-            {this.props.programmers.data.map(programmer => (
-              <Marker
-                latitude={programmer.latitude}
-                longitude={programmer.longitude}
+
+          <MenuList
+            programmers={this.props.programmers.data}
+            removeProgrammer={this.removeProgrammer}
+          />
+          <BehindContainer>
+            <ContainerMap>
+              <MapGL
+                {...this.state.viewport}
                 onClick={this.handleMapClick}
-                captureClick={true}
+                mapStyle="mapbox://styles/mapbox/basic-v9"
+                mapboxApiAccessToken={
+                  'pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ'
+                }
+                onViewportChange={viewport => this.setState({ viewport })}
               >
-                <img
-                  style={{
-                    borderRadius: 100,
-                    width: 48,
-                    height: 48,
-                  }}
-                  src={programmer.avatar}
-                />
-              </Marker>
-            ))}
-          </MapGL>
+                {this.props.programmers.data.map(programmer => (
+                  <Marker
+                    latitude={programmer.latitude}
+                    longitude={programmer.longitude}
+                    onClick={this.handleMapClick}
+                    captureClick={true}
+                  >
+                    <img
+                      style={{
+                        borderRadius: 100,
+                        width: 48,
+                        height: 48,
+                      }}
+                      src={programmer.avatar}
+                    />
+                  </Marker>
+                ))}
+              </MapGL>
+            </ContainerMap>
+          </BehindContainer>
         </div>
       </Fragment>
     );

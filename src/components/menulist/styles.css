@@ -1,0 +1,50 @@
+.leftContainer {
+  width: 25%;
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  height: 94%;
+  border-radius: 5px;
+  overflow: auto;
+  display: block;
+  z-index: 5;
+}
+
+.leftContainer ul {
+  list-style: none;
+}
+
+.leftContainer ul li div {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.Avatar {
+  opacity: 1;
+  border-radius: 100;
+  width: 48px;
+  height: 48px;
+}
+
+.programmerInfo {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+}
+
+.programmerInfo h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.programmerInfo h3 {
+  padding: 0;
+  margin: 0;
+  margin-top: 3px;
+  font-size: 12px;
+  color: #666;
+}
