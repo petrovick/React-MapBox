@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import './styles.css';
+import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import "./styles.css";
 
 const MenuList = ({ programmers, removeProgrammer }) => (
   <Fragment>
@@ -20,7 +20,7 @@ const MenuList = ({ programmers, removeProgrammer }) => (
                   removeProgrammer(programmer);
                 }}
               >
-                Rem
+                <i className="fa fa-trash" />
               </button>
             </div>
           </li>
